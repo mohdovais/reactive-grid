@@ -1,0 +1,36 @@
+{
+  "name": "reactive-grid",
+  "version": "0.0.1",
+  "description": "ExtJS inspired grid implementation in JSX",
+  "main": "index.js",
+  "scripts": {
+    "dev": "rollup -c -w",
+    "build": "rollup -c",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mohdovais/reactive-grid.git"
+  },
+  "author": "Mohd Ovais",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mohdovais/reactive-grid/issues"
+  },
+  "homepage": "https://github.com/mohdovais/reactive-grid#readme",
+  "dependencies": {
+    "preact": "^8.4.2",
+    "preact-compat": "^3.18.4"
+  },
+  "devDependencies": {
+    "eslint": "^5.11.0",
+    "rollup": "^0.68.2",
+    "rollup-plugin-buble": "^0.19.6",
+    "rollup-plugin-commonjs": "^9.2.0",
+    "rollup-plugin-node-resolve": "^4.0.0",
+    "rollup-plugin-postcss": "^1.6.3",
+    "rollup-plugin-replace": "^2.1.0",
+    "rollup-plugin-terser": "^3.0.0",
+    "rollup-plugin-virtual-alias": "^1.0.1"
+  }
+}

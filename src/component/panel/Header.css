@@ -1,0 +1,10 @@
+.x-panel-header {
+	display: flex;
+}
+
+.x-panel-header h4 {
+	flex: 1;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}

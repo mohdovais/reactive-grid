@@ -1,0 +1,29 @@
+.x-panel.x-grid .x-panel-body {
+	padding: 0;
+	position: relative;
+}
+.x-grid table {
+	width: 100%;
+	border-collapse: collapse;
+	table-layout: fixed;
+}
+
+.x-grid table th,
+.x-grid table td {
+	text-align: left;
+	padding: 5px;
+}
+
+.x-grid thead th {
+	font-weight: 400;
+	position: fixed;
+	position: sticky;
+	position: -webkit-sticky;
+	top: 0;
+	background-color: #fff;
+	box-shadow: 0 0 1px #888;
+}
+
+.x-grid table tbody tr:nth-child(2n + 1) {
+	background-color: #f9f9fa;
+}

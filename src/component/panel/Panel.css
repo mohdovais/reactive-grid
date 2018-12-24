@@ -1,0 +1,37 @@
+.x-panel {
+	display: flex;
+	flex-direction: column;
+	background-color: #fff;
+	box-shadow: 0 1px 4px 0 rgba(12, 12, 13, 0.2), 0 0 0 1px rgba(0, 0, 0, 0.15);
+}
+
+.x-panel-header {
+	border-bottom: 1px solid #ccc;
+	background: #ececec;
+	padding: 0.5em;
+}
+
+.x-panel-header h4 {
+	margin: 0;
+	padding: 0;
+}
+
+.x-panel-collapsed {
+	height: auto !important;
+}
+
+.x-panel .collapsed {
+	display: none;
+}
+
+.x-panel-content-wrapper {
+	flex: 1;
+	display: flex;
+	overflow: hidden;
+}
+
+.x-panel-body {
+	padding: 0.5em;
+	overflow: auto;
+	flex: 1;
+}
