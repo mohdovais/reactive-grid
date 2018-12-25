@@ -1,48 +1,9 @@
 import React from 'react';
 import Grid from './component/grid/Panel.jsx';
 import gen from './data';
+import columns from './columns.js';
 import style from './App.css';
 
-const columns = [
-	{
-		text: 'Column One',
-		dataIndex: 'column1'
-	},
-	{
-		text: 'Column Two',
-		dataIndex: 'column2'
-	},
-	{
-		text: 'Column Three',
-		dataIndex: 'column3'
-	},
-	{
-		text: 'Column Four',
-		dataIndex: 'column4'
-	},
-	{
-		text: 'Column Five',
-		dataIndex: 'column5'
-	},
-	{
-		text: 'Column Six',
-		dataIndex: 'column6'
-	},
-	{
-		text: 'Column Seven',
-		dataIndex: 'column7'
-	},
-	{
-		text: 'Column Eight',
-		dataIndex: 'column8',
-		style: function(column, record) {
-			return {
-				textAlign: 'right',
-				backgroundColor: record.column8 < 500 ? 'rgba(255,0,0,0.1)' : 'inherit'
-			};
-		}
-	}
-];
 
 export default class Application extends React.Component {
 	constructor(props) {
@@ -52,8 +13,8 @@ export default class Application extends React.Component {
 		};
 	}
 
+	/*
 	componentDidMount() {
-		return;
 		var me = this;
 		me.timer = setInterval(function() {
 			me.setState(() => {
@@ -65,6 +26,7 @@ export default class Application extends React.Component {
 	componentWillUnmount() {
 		clearInterval(this.timer);
 	}
+	*/
 
 	render() {
 		return (

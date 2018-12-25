@@ -1,0 +1,21 @@
+th.sortable{
+	cursor: pointer;
+}
+
+th.sortable:after{
+	content: '⇅';
+	color: #ddd;
+}
+
+th.sortable.sorted:after{
+	color: inherit;
+}
+
+th.sorted.DESC:after {
+	content: '↓';
+}
+
+th.sorted.ASC:after{
+    content: '↑';
+}
+

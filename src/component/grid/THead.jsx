@@ -1,10 +1,20 @@
 import React from 'react';
-import pure from './../../utils/pure-component';
+import TH from './THeadTH';
+import pure from './../../utils/pure-component.js';
 
 function THead(props) {
 	return (
 		<thead>
-			<tr>{props.columns.map((column) => <th>{column.text}</th>)}</tr>
+			<tr>
+				{props.columns.map((column) => (
+					<TH
+						column={column}
+						sortedColumn={props.sortedColumn}
+						sortedDirection={props.sortedDirection}
+						onHeaderClick={props.onHeaderClick}
+					/>
+				))}
+			</tr>
 		</thead>
 	);
 }
