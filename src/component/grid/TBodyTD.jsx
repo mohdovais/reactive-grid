@@ -1,6 +1,13 @@
 import React from 'react';
-import pure from './../../utils/pure-component';
-import { isFunction } from './../../utils/function';
+import pure from './../../utils/pure-component.js';
+import { SPACE } from './../../utils/constant.js';
+import { isFunction } from './../../utils/function.js';
+import { isEmptyString } from './../../utils/string.js';
+import { isUndefined } from './../../utils/object.js';
+
+function emptyCellText(value, emptyText) {
+	return isEmptyString(value) ? (isUndefined(emptyText) ? SPACE : emptyText) : value;
+}
 
 function TBodyTD(props) {
 	const column = props.column;
@@ -11,7 +18,7 @@ function TBodyTD(props) {
 
 	return (
 		<td style={isFunction(style) ? style(column, data) : style}>
-			{isFunction(renderer) ? renderer(value, data, column) : value}
+			{isFunction(renderer) ? renderer(value, data, column) : emptyCellText(value, column.emptyCellText)}
 		</td>
 	);
 }

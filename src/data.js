@@ -2,8 +2,13 @@ const strings = 'lorem ipsum dolor sit amet consectetur adipiscing elit curabitu
 	' '
 );
 const stringsLimit = strings.length - 1;
-const randomString = function() {
-	return strings[Math.round(Math.random() * stringsLimit)];
+const randomString = function self(length) {
+	const l = length === undefined ? 1 : length;
+	const arr = [];
+	for(let i=0; i<l; i++){
+		arr.push(strings[Math.round(Math.random() * stringsLimit)])
+	}
+	return arr.join(' ');
 };
 
 export default function generate(_columns, _count) {
@@ -14,7 +19,7 @@ export default function generate(_columns, _count) {
 	for (let i = 0; i < count; i++) {
         let row = {};
 		for (var j = 1; j < columns; j++) {
-            row['column' + j] = randomString()
+            row['column' + j] = randomString(Math.round(Math.random() * 10))
 		}
 		
 		row['column' + j] = Math.round(Math.random() * 1000);
