@@ -1,22 +1,24 @@
 import React from 'react';
-import TH from './THeadTH';
-import pure from './../../utils/pure-component.js';
+import THeadTH from './THeadTH.jsx';
 
 function THead(props) {
-	return (
-		<thead>
-			<tr>
-				{props.columns.map((column) => (
-					<TH
-						column={column}
-						sortedColumn={props.sortedColumn}
-						sortedDirection={props.sortedDirection}
-						onHeaderClick={props.onHeaderClick}
-					/>
-				))}
-			</tr>
-		</thead>
-	);
+    console.log('render head');
+    return (
+        <thead>
+            <tr>
+                {props.columns.map((column, i) => (
+                    <THeadTH
+                        key={column.key}
+                        column={column}
+                        columnIndex={i}
+                        sortedColumn={props.sortedColumn}
+                        sortedDirection={props.sortedDirection}
+                        onHeaderClick={props.onHeaderClick}
+                    />
+                ))}
+            </tr>
+        </thead>
+    );
 }
 
-export default pure(THead);
+export default React.memo(THead);

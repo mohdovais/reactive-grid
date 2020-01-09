@@ -1,31 +1,48 @@
 import React from 'react';
-import pure from '../../utils/pure-component.js';
 import { isFunction, emptyFn } from '../../utils/function.js';
-import style from './THeadTH.css';
+import { isUndefined } from '../../utils/object.js';
+import { DESC, ASC } from '../../utils/constant.js';
+import classNames from '../../utils/class-names.js';
+import './THeadTH.css';
 
 function isColumnSortable(column) {
-	return !(column.sortable === false || (column.dataIndex == undefined && column.sorter === undefined));
+    return !(
+        column.sortable === false ||
+        (isUndefined(column.dataIndex) && isUndefined(column.sorter))
+    );
 }
 
-function onColumnClick(column, onClick) {
-	const callback = isFunction(onClick) ? onClick : emptyFn;
-	return (event) => {
-		callback(event, column);
-	};
+function onColumnClick(column, direction, onClick) {
+    const callback = isFunction(onClick) ? onClick : emptyFn;
+    return () => {
+        callback(column, direction === DESC ? ASC : DESC);
+    };
 }
 
 function THeadTH(props) {
-	const column = props.column;
-	const sortable = isColumnSortable(column);
-	const classNames = [
-		props.sortedColumn === column ? 'sorted ' + props.sortedDirection : '',
-		sortable ? 'sortable' : 'not-sortable'
-	].join(' ').trim();
-	return (
-		<th className={classNames} onClick={sortable && onColumnClick(column, props.onHeaderClick)}>
-			{column.text}
-		</th>
-	);
+    const column = props.column;
+    const sortable = isColumnSortable(column);
+    const className = classNames(
+        props.sortedColumn === column ? 'sorted ' + props.sortedDirection : '',
+        sortable ? 'sortable' : 'not-sortable'
+    );
+
+    return (
+        <th
+            className={className}
+            onClick={
+                sortable
+                    ? onColumnClick(
+                          column,
+                          props.sortedDirection,
+                          props.onHeaderClick
+                      )
+                    : undefined
+            }
+        >
+            {column.text}
+        </th>
+    );
 }
 
-export default pure(THeadTH);
+export default React.memo(THeadTH);

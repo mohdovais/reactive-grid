@@ -1,9 +1,18 @@
 import React from 'react';
-import TR from './TBodyTR.jsx';
-import pure from './../../utils/pure-component';
+import TBodyTR from './TBodyTR.jsx';
 
 function TBody(props) {
-	return <tbody>{props.data.map((record) => <TR columns={props.columns} data={record} />)}</tbody>;
+    return (
+        <tbody>
+            {props.data.map(record => (
+                <TBodyTR
+                    key={record[props.rowKey]}
+                    record={record}
+                    columns={props.columns}
+                />
+            ))}
+        </tbody>
+    );
 }
 
-export default pure(TBody);
+export default React.memo(TBody);

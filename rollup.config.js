@@ -4,19 +4,13 @@ import commonjs from 'rollup-plugin-commonjs';
 import buble from 'rollup-plugin-buble';
 import replace from 'rollup-plugin-replace';
 import postcss from 'rollup-plugin-postcss';
-import virtual from 'rollup-plugin-virtual-alias';
+import { terser } from 'rollup-plugin-terser';
 import autoprefixer from 'autoprefixer';
-import cssnano from 'cssnano';
-import {
-    terser
-} from 'rollup-plugin-terser';
 
 // `npm run build` -> `production` is true
 // `npm run dev` -> `production` is false
 const production = !process.env.ROLLUP_WATCH;
 const environment = production ? 'production' : 'development';
-
-var path = require('path');
 
 export default {
     input: 'src/main.js',
@@ -27,12 +21,11 @@ export default {
     },
     plugins: [
         postcss({
-            minimize: true,
-            extract: true
-        }),
-        virtual({
-            'react': 'preact-compat',
-            'react-dom': 'preact-compat',
+            extract: true,
+            minimize: {
+                preset: 'advanced'
+            },
+            plugins: [autoprefixer()]
         }),
         resolve({
             browser: true,
@@ -41,8 +34,10 @@ export default {
         replace({
             'process.env.NODE_ENV': JSON.stringify(environment)
         }),
-        buble(),
+        buble({
+            objectAssign: 'Object.assign' //'Object.assign'
+        }),
         commonjs(), // converts date-fns to ES modules
         production && terser() // minify, but only in production
     ]
-}
+};

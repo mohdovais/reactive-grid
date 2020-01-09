@@ -1,42 +1,84 @@
 import React from 'react';
-import Grid from './component/grid/Panel.jsx';
-import gen from './data';
-import columns from './columns.js';
-import style from './App.css';
+import Panel from './component/panel/Panel';
+import Table from './component/grid/Table';
+import Column from './component/grid/Column';
+import Pager from './component/pagination/Pager';
+import useStore, { LOADE_DATA, SET_SORT } from './useStore';
 
+export default function App() {
+    const [store, dispatch] = useStore();
+    const onSortChange = (col, direction) => {
+        dispatch({
+            type: SET_SORT,
+            column: col.dataIndex,
+            direction,
+            sorter: col.sorter
+        });
+    };
 
-export default class Application extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			random: Math.random()
-		};
-	}
+    React.useEffect(() => {
+        fetch('data/data-01.json')
+            .then(response => response.json())
+            .then(data => dispatch({ type: LOADE_DATA, data }));
+    }, []);
 
-	/*
-	componentDidMount() {
-		var me = this;
-		me.timer = setInterval(function() {
-			me.setState(() => {
-				random: Math.random();
-			});
-		}, 100);
-	}
-
-	componentWillUnmount() {
-		clearInterval(this.timer);
-	}
-	*/
-
-	render() {
-		return (
-			<Grid
-				//style={{ height: '400px' }}
-				title="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
-				columns={columns}
-				data={gen(8, 25)}
-				tools={[ <button>WTF</button> ]}
-			/>
-		);
-	}
+    return (
+        <Panel title="Hello World!">
+            <Table
+                data={store.page}
+                onHeaderClick={onSortChange}
+                rowKey="id"
+                sortedColumn={store.sortedColumn}
+                sortedDirection={store.sortedDirection}
+            >
+                <Column text="ID" dataIndex="id" key="id" />
+                <Column
+                    text="First Name"
+                    dataIndex="first_name"
+                    key="first_name"
+                    editing={true}
+                    editor={function(value, record, onChange) {
+                        return <input type="text" defaultValue={value} />;
+                    }}
+                />
+                <Column
+                    text="Last Name"
+                    dataIndex="last_name"
+                    key="last_name"
+                    onClick={function() {
+                        debugger;
+                    }}
+                />
+                <Column
+                    text="Name"
+                    renderer={(value, record, column) =>
+                        `${record.first_name} ${record.last_name}`
+                    }
+                    key="full_name"
+                />
+                <Column text="Email" dataIndex="email" key="email" />
+                <Column
+                    text="Gender"
+                    dataIndex="gender"
+                    renderer={value => {
+                        switch (value) {
+                            case 'M':
+                                return 'Male';
+                            case 'F':
+                                return 'Female';
+                            default:
+                                return 'Unknown';
+                        }
+                    }}
+                    key="gender"
+                />
+                <Column
+                    text="Date of Birth"
+                    dataIndex="date_of_birth"
+                    key="date_of_birth"
+                />
+            </Table>
+            <Pager store={store} dispatch={dispatch} />
+        </Panel>
+    );
 }

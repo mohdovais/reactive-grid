@@ -1,11 +1,11 @@
 export function arrayFrom(array) {
-	if (array === undefined) {
-		return [];
-	}
-
-	if (Array.isArray(array)) {
-		return array.slice();
+    if (array === undefined || array === null) {
+        return [];
     }
-    
+
+    if (Array.isArray(array)) {
+        return array;
+    }
+
     return [array];
 }
